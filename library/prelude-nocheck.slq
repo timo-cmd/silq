@@ -16,10 +16,12 @@ def S(x:𝔹)mfree{
 	if x { phase(π/2); }
 	return x;
 }
+
 def CNOT(const x:𝔹,y:𝔹)qfree{
 	y⊕=x;
 	return y;
 }
+
 def reverse[τ,χ,φ]lifted(f: !(const τ × χ →mfree φ))lifted:const τ × φ →mfree χ⇒
   (quantumPrimitive("reverse"):!(Π[τ:*,χ:*,φ:*]lifted. !(!(const τ×χ →mfree φ) →lifted !(const τ × φ →mfree χ))))(f);
 
@@ -57,6 +59,7 @@ def min[n:!ℕ](x:!ℝ^n)lifted:!ℝ{
 	}
 	return r;
 }
+
 def max[n:!ℕ](x:!ℝ^n)lifted:!ℝ{
 	r:=x[0];
 	for i in [1..n){
@@ -74,6 +77,7 @@ def print[τ:*](x:!τ)lifted{
 	def printImpl(x:!τ)lifted:𝟙;
 	printImpl(x);
 }
+
 def dump()lifted:𝟙;
 def exit()lifted:𝟙;
 
@@ -166,6 +170,7 @@ def dirichlet(α: ℝ[]){
 	}
 	return r;
 }
+
 def Dirichlet(α: ℝ[]) ⇒ infer(()=>dirichlet(α));
 
 def multiGauss(μ: ℝ[], Σ: ℝ[][]){
@@ -178,6 +183,7 @@ def multiGauss(μ: ℝ[], Σ: ℝ[][]){
 		}
 		return r;
 	}
+	
 	def avv(a: ℝ[], b: ℝ[]){
 		r:=array(a.length,0.0);
 		for i in [0..a.length){
@@ -185,6 +191,7 @@ def multiGauss(μ: ℝ[], Σ: ℝ[][]){
 		}
 		return r;
 	}
+	
 	def dot(a: ℝ[], b: ℝ[]){
 		r:=0.0;
 		for i in [0..a.length){
@@ -192,6 +199,7 @@ def multiGauss(μ: ℝ[], Σ: ℝ[][]){
 		}
 		return r;
 	}
+	
 	def cholesky(A: ℝ[][]){
 		L := array(A.length,array(A.length,0.0));
 		for i in [0..A.length){
@@ -206,12 +214,15 @@ def multiGauss(μ: ℝ[], Σ: ℝ[][]){
 		}
 		return L;
 	}
+	
 	r := array(μ.length,0.0);
 	for i in [0..r.length){
 		r[i] = gauss(0,1);
 	}
+	
 	return avv(mmv(cholesky(Σ),r),μ);
 }
+
 def MultiGauss(μ: ℝ[], Σ: ℝ[][])⇒infer(()⇒ multiGauss(μ,Σ));
 +/
 __NOCHECK__ := 1;
